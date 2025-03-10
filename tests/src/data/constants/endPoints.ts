@@ -4,6 +4,7 @@ export class UI_ENDPOINTS {
     static ORDERS_OPEN = `${this.CUSTOMER}/orders/open`;
     static ORDERS_DRAFT = `${this.CUSTOMER}/orders/draft`;
     static NEW_ORDER = `${this.CUSTOMER}/draft/new`;
+    static DEPOSIT = `${this.CUSTOMER}/order-form-deposit`;
 
     static draftById(orderId: string) {
         return `${this.CUSTOMER}/draft/${orderId}`;
