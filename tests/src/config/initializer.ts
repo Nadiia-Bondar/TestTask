@@ -1,4 +1,9 @@
 import {Browser, BrowserContext, chromium, Page} from 'playwright';
+import {LoginPage} from '../page-objects/pages/loginPage';
+import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config({path: path.resolve('tests/.env')});
 
 let browsers: { browser: Browser; context: BrowserContext };
 let page: Page;
@@ -25,5 +30,13 @@ export class Initializer {
             args: ['--no-sandbox'],
         };
         return await chromium.launch(browserConfig);
+    }
+
+    async loginInApp(email = `${process.env.USER_LOGIN}`, password = `${process.env.USER_PASSWORD}`): Promise<Page> {
+        const page = await this.initPage();
+        const loginPage = new LoginPage(page);
+        await loginPage.navigateTo();
+        await loginPage.login(email, password);
+        return page;
     }
 }
